@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Typewriter from './Typewriter';
+import InfiniteSlider from './InfiniteSlider';
 import './UploadForm.css';
 
 const UploadForm = ({ onSubmit, isLoading }) => {
@@ -196,12 +197,16 @@ const UploadForm = ({ onSubmit, isLoading }) => {
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         <p className="trust-label">TRUSTED BY PROFESSIONALS AT</p>
-        <div className="company-logos">
-          <span className="company-name">Google</span>
-          <span className="company-name">Microsoft</span>
-          <span className="company-name">Amazon</span>
-          <span className="company-name">Meta</span>
-        </div>
+        <InfiniteSlider gap={48} duration={30} durationOnHover={50} className="company-logos-slider">
+          <span className="company-logo-text">Google</span>
+          <span className="company-logo-text">Microsoft</span>
+          <span className="company-logo-text">Amazon</span>
+          <span className="company-logo-text">Meta</span>
+          <span className="company-logo-text">Apple</span>
+          <span className="company-logo-text">Netflix</span>
+          <span className="company-logo-text">Tesla</span>
+          <span className="company-logo-text">Salesforce</span>
+        </InfiniteSlider>
         
         <div className="social-proof">
           <div className="user-avatars">
