@@ -131,6 +131,11 @@ const ResultsDisplay = ({ results }) => {
               totalKeywords={totalKeywords}
               missingSkills={missingSkills}
             />
+            
+            {/* Trust Disclaimer */}
+            <p className="trust-disclaimer">
+              ATS scores are estimates based on keyword alignment and do not guarantee hiring outcomes.
+            </p>
           </div>
         </div>
       </motion.div>

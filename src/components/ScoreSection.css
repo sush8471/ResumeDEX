@@ -163,6 +163,17 @@
   margin: 0;
 }
 
+/* Trust Disclaimer */
+.trust-disclaimer {
+  margin-top: var(--spacing-lg);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--color-slate-400);
+  opacity: 0.7;
+  font-style: italic;
+  text-align: left;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .score-main-content {
