@@ -95,12 +95,23 @@ export const optimizeResume = async (resumeFile, jobDescription) => {
       explanation: data.explanation || data.output?.explanation || 'Analysis complete.',
       // Optional fields for UX enhancements
       originalBullets: originalBullets,
-      matchedKeywords: data.matched_keywords || data.matchedKeywords || data.output?.matched_keywords,
-      totalKeywords: data.total_keywords || data.totalKeywords || data.output?.total_keywords,
+      matchedKeywords: data.matched_keywords_count || data.matched_keywords || data.matchedKeywords || data.output?.matched_keywords_count || data.output?.matched_keywords,
+      totalKeywords: data.total_keywords_count || data.total_keywords || data.totalKeywords || data.output?.total_keywords_count || data.output?.total_keywords,
       missingSkills: missingSkills
     };
 
     console.log('Normalized Data:', normalizedData); // Debug log
+    
+    // Log breakdown data availability
+    if (normalizedData.matchedKeywords !== undefined || normalizedData.totalKeywords !== undefined || normalizedData.missingSkills.length > 0) {
+      console.log('✅ ATS Breakdown data available:', {
+        matchedKeywords: normalizedData.matchedKeywords,
+        totalKeywords: normalizedData.totalKeywords,
+        missingSkillsCount: normalizedData.missingSkills.length
+      });
+    } else {
+      console.log('ℹ️ No ATS Breakdown data in response - section will be hidden');
+    }
 
     // Validate response structure
     if (!normalizedData.optimizedBullets || normalizedData.optimizedBullets.length === 0) {

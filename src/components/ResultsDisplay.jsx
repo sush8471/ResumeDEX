@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProgressBar from './ProgressBar';
+import BulletSnippet from './BulletSnippet';
+import ATSBreakdown from './ATSBreakdown';
 import './ResultsDisplay.css';
+import './ScoreSection.css';
 
 const ResultsDisplay = ({ results }) => {
   const { 
@@ -41,27 +44,95 @@ const ResultsDisplay = ({ results }) => {
 
   return (
     <div className="results-page">
-      {/* Header with Back */}
-      <div className="results-header-bar">
-        <button className="back-btn" onClick={() => window.location.reload()}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-        </button>
-        <h2 className="results-title">Results</h2>
-        <button className="export-btn">Export</button>
-      </div>
-
-      {/* ATS Score Section */}
+      {/* Unified Score Section with Header */}
       <motion.div 
-        className="score-section"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
+        className="score-section-unified"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <ProgressBar score={atsScore} size="large" />
-        <h2 className="score-message">{getScoreMessage(atsScore)}</h2>
-        <p className="score-description">{getScoreDescription(atsScore)}</p>
+        {/* Top Bar with Back and Export */}
+        <div className="score-top-bar">
+          <button className="back-btn-minimal" onClick={() => window.location.reload()}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <span className="results-label">Results</span>
+          <button className="export-btn-minimal">Export</button>
+        </div>
+
+        {/* Main Score Content */}
+        <div className="score-main-content">
+          {/* Circular Score */}
+          <div className="score-circle-wrapper">
+            <svg width="240" height="240" viewBox="0 0 240 240" className="score-svg">
+              <defs>
+                <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor={atsScore >= 75 ? '#10b981' : atsScore >= 50 ? '#f59e0b' : '#ef4444'} />
+                  <stop offset="100%" stopColor={atsScore >= 75 ? '#34d399' : atsScore >= 50 ? '#fbbf24' : '#f87171'} />
+                </linearGradient>
+              </defs>
+              
+              {/* Background circle */}
+              <circle
+                cx="120"
+                cy="120"
+                r="95"
+                fill="none"
+                stroke="rgba(148, 163, 184, 0.12)"
+                strokeWidth="16"
+              />
+              
+              {/* Animated progress circle */}
+              <motion.circle
+                cx="120"
+                cy="120"
+                r="95"
+                fill="none"
+                stroke="url(#scoreGradient)"
+                strokeWidth="16"
+                strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 95}
+                strokeDashoffset={2 * Math.PI * 95}
+                animate={{ 
+                  strokeDashoffset: 2 * Math.PI * 95 * (1 - atsScore / 100)
+                }}
+                transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+                transform="rotate(-90 120 120)"
+              />
+            </svg>
+            
+            {/* Score text overlay - Horizontal Compact */}
+            <div className="score-overlay">
+              <motion.div
+                className="score-overlay-content"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
+                <div className="score-horizontal">
+                  <span className="score-number-compact">{atsScore}</span>
+                  <span className="score-fraction-compact">/100</span>
+                </div>
+                <div className="score-label-compact">ATS SCORE</div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Score Text */}
+          <div className="score-content">
+            <h2 className="score-title">{getScoreMessage(atsScore)}</h2>
+            <p className="score-desc">{getScoreDescription(atsScore)}</p>
+            
+            {/* ATS Score Breakdown */}
+            <ATSBreakdown 
+              matchedKeywords={matchedKeywords}
+              totalKeywords={totalKeywords}
+              missingSkills={missingSkills}
+            />
+          </div>
+        </div>
       </motion.div>
 
       {/* Tabs */}
@@ -111,44 +182,13 @@ const ResultsDisplay = ({ results }) => {
                   const hasOriginal = original && original.trim().length > 0;
 
                   return (
-                    <div key={index} className="adjustment-card">
-                      {hasOriginal && (
-                        <div className="impact-badge">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                          </svg>
-                          IMPACT BOOST
-                        </div>
-                      )}
-
-                      {hasOriginal && (
-                        <div className="before-text">
-                          <span className="label">BEFORE</span>
-                          <p className="strikethrough">{original}</p>
-                        </div>
-                      )}
-
-                      <div className="optimized-text">
-                        {hasOriginal && <span className="label">OPTIMIZED</span>}
-                        <p>{bullet}</p>
-                      </div>
-
-                      <button 
-                        className={`copy-btn ${copiedIndex === index ? 'copied' : ''}`}
-                        onClick={() => handleCopy(bullet, index)}
-                      >
-                        {copiedIndex === index ? (
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
-                        ) : (
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                          </svg>
-                        )}
-                      </button>
-                    </div>
+                    <BulletSnippet
+                      key={index}
+                      text={bullet}
+                      showBefore={hasOriginal}
+                      beforeText={original}
+                      hasImpact={hasOriginal}
+                    />
                   );
                 })
               )}

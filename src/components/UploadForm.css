@@ -17,7 +17,16 @@
   margin-bottom: var(--spacing-lg);
   color: var(--color-white);
   letter-spacing: -0.03em;
+  min-height: 2.4em; /* Prevent layout shift during typewriter animation */
 }
+
+.typewriter-cursor {
+  display: inline-block;
+  color: var(--color-emerald-400);
+  font-weight: 400;
+  margin-left: 2px;
+}
+
 
 .hero-subtitle {
   font-size: 1.125rem;

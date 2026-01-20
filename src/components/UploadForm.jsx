@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Typewriter from './Typewriter';
 import './UploadForm.css';
 
 const UploadForm = ({ onSubmit, isLoading }) => {
@@ -69,7 +70,19 @@ const UploadForm = ({ onSubmit, isLoading }) => {
         transition={{ duration: 0.6 }}
       >
         <h1 className="hero-title">
-          Land Your Dream Job<br />with AI.
+          <Typewriter 
+            texts={[
+              "Land Your Dream Job",
+              "Get More Interviews",
+              "Beat the ATS",
+              "Stand Out from Competition"
+            ]}
+            speed={80}
+            deleteSpeed={40}
+            delay={2000}
+            loop={true}
+          />
+          <br />with AI.
         </h1>
         <p className="hero-subtitle">
           Optimize your resume for ATS systems in seconds.<br />

@@ -1,0 +1,235 @@
+/* Unified Score Section */
+.score-section-unified {
+  background: linear-gradient(135deg, rgba(15, 31, 58, 0.6), rgba(16, 185, 129, 0.05));
+  border: 1px solid var(--color-emerald-600);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--spacing-2xl);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+/* Top Bar (Results, Back, Export) */
+.score-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.results-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-white);
+  font-family: var(--font-heading);
+}
+
+.back-btn-minimal,
+.export-btn-minimal {
+  background: transparent;
+  border: 1px solid var(--color-navy-600);
+  color: var(--color-slate-300);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.back-btn-minimal {
+  padding: var(--spacing-xs);
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+}
+
+.export-btn-minimal {
+  color: var(--color-emerald-400);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.back-btn-minimal:hover {
+  border-color: var(--color-emerald-500);
+  color: var(--color-emerald-400);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.export-btn-minimal:hover {
+  border-color: var(--color-emerald-400);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+/* Main Score Content Area */
+.score-main-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  padding: var(--spacing-2xl);
+}
+
+/* Circular Score Wrapper - Original Size with Compact Text */
+.score-circle-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  flex-shrink: 0;
+}
+
+.score-svg {
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+}
+
+.score-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.score-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Horizontal Score Layout - Compact */
+.score-horizontal {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.score-number-compact {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: var(--color-white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.score-fraction-compact {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-slate-400);
+  line-height: 1;
+}
+
+.score-label-compact {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--color-emerald-400);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+
+
+
+/* Score Content */
+.score-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.score-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.score-desc {
+  color: var(--color-slate-300);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .score-main-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .score-circle-wrapper {
+    margin: 0 auto;
+  }
+  
+  .score-content {
+    align-items: center;
+  }
+  
+  .score-title {
+    text-align: center;
+  }
+  
+  .score-desc {
+    text-align: center;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .score-top-bar {
+    padding: var(--spacing-md);
+  }
+  
+  .results-label {
+    font-size: 1.25rem;
+  }
+  
+  .score-main-content {
+    padding: var(--spacing-xl) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+  
+  .score-circle-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .score-circle-wrapper svg {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .score-number-compact {
+    font-size: 2.25rem;
+  }
+  
+  .score-fraction-compact {
+    font-size: 1rem;
+  }
+  
+  .score-label-compact {
+    font-size: 0.7rem;
+  }
+  
+  .score-title {
+    font-size: 1.75rem;
+  }
+  
+  .score-desc {
+    font-size: 1rem;
+  }
+}
