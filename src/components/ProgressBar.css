@@ -1,0 +1,53 @@
+.progress-bar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.progress-bar-container.large {
+  margin: var(--spacing-lg) 0;
+}
+
+.progress-svg {
+  filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.score-fraction {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-slate-400);
+  margin-top: 2px;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #60a5fa;
+  margin-top: 8px;
+}
+
+/* Large variant */
+.progress-bar-container.large .score-label {
+  font-size: 0.75rem;
+  margin-top: 10px;
+}

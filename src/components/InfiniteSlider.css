@@ -1,0 +1,19 @@
+.infinite-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.infinite-slider-content {
+  display: flex;
+  width: max-content;
+}
+
+/* Grayscale and opacity for logo effect */
+.infinite-slider img {
+  filter: grayscale(100%) opacity(0.4);
+  transition: all var(--transition-base);
+}
+
+.infinite-slider:hover img {
+  filter: grayscale(0%) opacity(1);
+}
